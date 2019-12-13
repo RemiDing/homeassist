@@ -1,0 +1,26 @@
+- id: '1573633991019'
+  alias: Switch schaltet Relais aus
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.dves_7678ce_switch
+    platform: state
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.dves_7678ce_relais
+    service: switch.turn_off
+- id: '1573634184036'
+  alias: Switch schaltet Relais an
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.dves_7678ce_switch
+    platform: state
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.dves_7678ce_relais
+    service: switch.turn_on

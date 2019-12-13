@@ -1,0 +1,28 @@
+# Example automations.yaml entry
+- alias: "Shelly Sync at HA Start"
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+#  - delay: 00:00:02
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7672ED/state"
+        payload: ""
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7678CE/state"
+        payload: ""
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7672ED/POWER"
+        payload: ""
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7672ED/POWER"
+        payload: ""
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7678CE/POWER2"
+        payload: ""
+

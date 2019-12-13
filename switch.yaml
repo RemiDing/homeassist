@@ -1,0 +1,12 @@
+– platform: mqtt
+  name: “sonoff1795”
+  state_topic: “stat/sonoff-1795/RESULT”
+  value_template: ‘{{ value_json[“POWER1”] }}’
+  command_topic: “cmnd/sonoff-1795/POWER1”
+  availability_topic: “tele/sonoff-1795/LWT”
+  qos: 1
+  payload_on: “ON”
+  payload_off: “OFF”
+  payload_available: “Online”
+  payload_not_available: “Offline”
+  retain: true 

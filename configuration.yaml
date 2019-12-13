@@ -1,0 +1,119 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Activate the configuration editor
+config:
+
+group: !include groups.yaml
+automation: !include automations_alt.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+mqtt:
+  broker: 192.168.2.2
+
+
+switch:
+  - platform: mqtt
+    name: "DVES_7678CE_Relais"
+    state_topic: "stat/richelly/DVES_7678CE/POWER2"
+    command_topic: "cmnd/richelly/DVES_7678CE/POWER2"
+#    availability_topic: "tele/richelly/DVES_7678CE/LWT"
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: “Online”
+    payload_not_available: “Offline”
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 1
+    retain: false
+
+  - platform: mqtt
+    name: "DVES_76CBF3_Relais1"
+    state_topic: "stat/richelly/DVES_76CBF3/POWER1"
+    command_topic: "cmnd/richelly/DVES_76CBF3/POWER1"
+#    availability_topic: "tele/richelly/DVES_7678CE/LWT"
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: “Online”
+    payload_not_available: “Offline”
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 1
+    retain: false
+
+  - platform: mqtt
+    name: "DVES_76CBF3_Relais2"
+    state_topic: "stat/richelly/DVES_76CBF3/POWER2"
+    command_topic: "cmnd/richelly/DVES_76CBF3/POWER2"
+#    availability_topic: "tele/richelly/DVES_7678CE/LWT"
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: “Online”
+    payload_not_available: “Offline”
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 1
+    retain: false
+
+  - platform: mqtt
+    name: "DVES_7672ED"
+    state_topic: "stat/richelly/DVES_7672ED/POWER"
+    command_topic: "cmnd/richelly/DVES_7672ED/POWER"
+#    availability_topic: "tele/richelly/DVES_7672ED/LWT"
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: “Online”
+    payload_not_available: “Offline”
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 1
+    retain: false
+
+binary_sensor:
+  - platform: mqtt
+    name: "DVES_7678CE_Switch"
+    state_topic: "stat/richelly/DVES_7678CE/POWER1"
+    payload_on: "ON"
+    payload_off: "OFF"
+#    availability_topic: "tele/richelly/DVES_7678CE/LWT"
+    payload_available: “Online”
+    payload_not_available: “Offline”
+
+  - platform: mqtt
+    name: "DVES_76CBF3_Switch"
+    state_topic: "stat/richelly/DVES_76CBF3/POWER3"
+    payload_on: "ON"
+    payload_off: "OFF"
+#    availability_topic: "tele/richelly/DVES_76CBF3/LWT"
+    payload_available: “Online”
+    payload_not_available: “Offline”
+
+  - platform: mqtt
+    name: "DVES_76CBF3_Switch"
+    state_topic: "stat/richelly/DVES_76CBF3/POWER4"
+    payload_on: "ON"
+    payload_off: "OFF"
+#    availability_topic: "tele/richelly/DVES_76CBF3/LWT"
+    payload_available: “Online”
+    payload_not_available: “Offline”
+
+
+sensor:
+  - platform: mqtt
+    name: "richelly IP"
+    state_topic: 'stat/richelly/DVES_7678CE/RESULT'
+    value_template: "{{ value_json.IPAddress1.split(' ')[1].replace('(','').replace(')','') }}"

@@ -1,0 +1,8 @@
+# get IP adress of richellys
+#
+# get_richelly_ip:	
+#  alias: Get Sonoff New IP (sonoff)	
+#  sequence:	
+#  - data:	
+#      topic: cmnd/richelly/DVES_7678CE/ipaddress	
+#    service: mqtt.publish	

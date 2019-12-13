@@ -1,0 +1,19 @@
+2019-12-11 14:06:25 ERROR (SyncWorker_0) [homeassistant.util.yaml.loader] YAML file /config/configuration.yaml contains duplicate key "automation". Check lines 16 and 17.
+2019-12-11 14:06:29 WARNING (MainThread) [homeassistant.components.mqtt] Data in your config entry is going to override your configuration.yaml: {'broker': '192.168.2.2', 'discovery': True, 'password': 'HomeRichi42', 'port': 1883, 'username': 'richard'}
+2019-12-11 14:06:35 ERROR (MainThread) [homeassistant.core] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity_platform.py", line 406, in _async_add_entity
+    await entity.async_added_to_hass()
+  File "/usr/src/homeassistant/homeassistant/components/met/weather.py", line 82, in async_added_to_hass
+    await self._fetch_data()
+  File "/usr/src/homeassistant/homeassistant/components/met/weather.py", line 146, in _fetch_data
+    self._update()
+  File "/usr/src/homeassistant/homeassistant/components/met/weather.py", line 153, in _update
+    self.async_write_ha_state()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 288, in async_write_ha_state
+    self._async_write_ha_state()
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 316, in _async_write_ha_state
+    attr.update(self.state_attributes or {})
+  File "/usr/src/homeassistant/homeassistant/components/weather/__init__.py", line 168, in state_attributes
+    forecast_entry[ATTR_FORECAST_TEMP],
+KeyError: 'temperature'
