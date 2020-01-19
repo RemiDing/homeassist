@@ -1,3 +1,78 @@
+# Example automations.yaml entry
+- alias: "Shelly Sync at HA Start"
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+#  - delay: 00:00:02
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7672ED/state"
+        payload: ""
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7678CE/state"
+        payload: ""
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7672ED/POWER"
+        payload: ""
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7672ED/POWER"
+        payload: ""
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7678CE/POWER2"
+        payload: ""
+
+
+- alias: "every 5 minutes"
+  trigger:
+    platform: time_pattern
+    # You can also match on interval. This will match every 5 minutes
+    minutes: "/5"
+  action:
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_76CBF3/state"
+        payload: ""
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/richelly/DVES_7678CE/state"
+        payload: ""
+
+- alias: Alert when a critical device goes offline
+  trigger:
+    - platform: state
+      entity_id: device_tracker.204_dves_76cbf3, device_tracker.100_huawei
+      from: 'home'
+      to: 'not_home'
+      for:
+        minutes: 2
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: >
+          {% if states.automation.alert_when_a_critical_device_goes_offline.last_triggered is not none %}
+            {% if as_timestamp(now()) | int   -  as_timestamp(states.automation.alert_when_a_critical_device_goes_offline.attributes.last_triggered) | int > 3600 %} true {% else %} false
+            {% endif %}
+          {% else %}
+          false
+          {% endif %}
+  action:
+    - service: persistent_notification.create
+      data:
+        message: >
+          {% for state_i in states.device_tracker %}      
+          {% if  'not_home'== state_i.state %}  
+          {{ state_i.entity_id }}={{ state_i.state }},
+          {% endif %}
+          {% endfor %}
+        title: Device Alert
+
+
 - id: '1573633991019'
   alias: Switch schaltet Relais aus
   description: ''
@@ -24,3 +99,60 @@
   - data:
       entity_id: switch.dves_7678ce_relais
     service: switch.turn_on
+
+
+- alias: 'Make the lights go bright'
+  initial_state: 'on'
+  trigger:
+  - entity_id: binary_sensor.dves_b95200_Switch_1
+    platform: state
+    from: 'off'
+    to: 'on'
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.light_bright
+
+- alias: 'Stop the bright just there'
+  initial_state: 'on'
+  trigger:
+  - entity_id: binary_sensor.dves_b95200_Switch_1
+    platform: state
+    from: 'on'
+    to: 'off'
+  action:
+    - service: script.turn_off
+      data:
+        entity_id: script.light_bright
+    - service: script.turn_off
+      data:
+        entity_id: script.light_bright_pause
+
+- alias: 'Make the lights go dim'
+  initial_state: 'on'
+  trigger:
+  - entity_id: binary_sensor.dves_b95200_Switch_2
+    platform: state
+    from: 'off'
+    to: 'on'
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.light_dim
+
+- alias: 'Stop the dim just there'
+  initial_state: 'on'
+  trigger:
+  - entity_id: binary_sensor.dves_b95200_Switch_2
+    platform: state
+    from: 'on'
+    to: 'off'
+  action:
+    - service: script.turn_off
+      data:
+        entity_id: script.light_dim
+    - service: script.turn_off
+      data:
+        entity_id: script.light_dim_pause   
+ 
+

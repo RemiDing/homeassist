@@ -1,0 +1,34 @@
+
+#dc_4f_22_76_cb_f3:
+204_DVES_76CBF3:
+  hide_if_away: false
+  icon:
+  mac: DC:4F:22:76:CB:F3
+  name: 204 DVES_76CBF3
+  picture:
+  track: true
+
+
+100_Huawei:
+  hide_if_away: false
+  icon:
+  mac: 90:94:97:0C:EF:15
+  name: 100 Huawei
+  picture:
+  track: true
+
+98_f4_ab_b9_52_00:
+  hide_if_away: false
+  icon:
+  mac: 98:F4:AB:B9:52:00
+  name: 98 f4 ab b9 52 00
+  picture:
+  track: true
+
+50_02_91_b0_62_b0:
+  hide_if_away: false
+  icon:
+  mac: 50:02:91:B0:62:B0
+  name: 50 02 91 b0 62 b0
+  picture:
+  track: true

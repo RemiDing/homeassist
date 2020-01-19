@@ -1,0 +1,55 @@
+default view:
+  name: Home
+  view: yes
+  entities:
+    - group.switches
+#    - group.binary_sensors
+    - group.people
+    - sun.sun
+    - weather.home
+
+all_devices:
+  name: all_devices
+  view: yes
+
+all_switches:
+  name: all_switches
+  view: yes
+
+all_automations:
+  name: all_automations
+  view: yes
+
+kitchen:
+  name: Kitchen
+  view: yes
+
+system:
+  name: System
+  view: yes
+
+devices:
+  name: Tracked Devices
+  view: yes
+  entities:
+    - device_tracker.100_Huawei
+    - device_tracker.204_DVES_76CBF3
+
+people:
+  name: people
+  entities:
+   - person.richard_glatthaar
+
+#binary_sensors:
+#  name: binary_sensors
+# entities:
+#   - binary_sensor.DVES_B95200_Switch
+
+switches:    
+ name: switches
+ entities:
+   - switch.DVES_7678CE_Relais
+   - switch.DVES_76CBF3_Relais1
+   - switch.DVES_76CBF3_Relais2
+   - switch.DVES_7672ED
+
